@@ -51,8 +51,7 @@ for epoch in range(epochs):
 
     # Forward pass
     y_prob = model(X_train).squeeze()
-    y_pred = torch.round(y_prob)
-
+    y_pred = torch.round(torch.sigmoid(y_prob))
 
     # Calculate loss and accuracy
     loss = loss_func(y_prob, y_train)
@@ -69,12 +68,12 @@ for epoch in range(epochs):
     with torch.inference_mode():
         # Forward pass
         test_prob = model(X_test).squeeze()
-        test_pred = torch.round(test_prob)
+        test_pred = torch.round(torch.sigmoid(test_prob))
 
         # Calculate loss and accuracy
         test_loss = loss_func(test_prob, y_test)
         test_acc = accuracy_fn(y_test, test_pred)
 
     # Print out what's happening every 10 epochs
-    if epoch % 100 == 0:
+    if epoch % 1000 == 0:
         print(f"Epoch: {epoch} | Loss: {loss:.5f}, Accuracy: {acc:.2f}% | Test loss: {test_loss:.5f}, Test acc: {test_acc:.2f}%")
