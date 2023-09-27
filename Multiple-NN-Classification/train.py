@@ -67,11 +67,11 @@ for epoch in range(EPOCHS):
     model.train()
 
     # Forward pass
-    y_prob = model(X_train).squeeze()
-    y_pred = torch.softmax(y_prob, dim= 1).argmax(dim= 1)
+    y_logit = model(X_train).squeeze()
+    y_pred = torch.softmax(y_logit, dim= 1).argmax(dim= 1)
 
     # Calculate loss and accuracy of train dataset
-    loss = loss_func(y_prob, y_train)
+    loss = loss_func(y_logit, y_train)
     acc = accuracy(y_pred, y_train)
 
     # Backpropagation
@@ -85,11 +85,11 @@ for epoch in range(EPOCHS):
 
     with torch.inference_mode():
         # Forward pass
-        y_prob = model(X_test).squeeze()
-        y_pred = torch.softmax(y_prob, dim= 1).argmax(dim= 1)
+        y_logit = model(X_test).squeeze()
+        y_pred = torch.softmax(y_logit, dim= 1).argmax(dim= 1)
 
         # Calculate the loss and accuracy of test dataset
-        test_loss = loss_func(y_prob, y_test)
+        test_loss = loss_func(y_logit, y_test)
         test_acc = accuracy(y_pred, y_test)
 
 
