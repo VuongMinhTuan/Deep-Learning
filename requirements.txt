@@ -4,5 +4,6 @@ pandas
 torch
 torchvision
 torchaudio
+torchtext
 torchmetrics
 matplotlib
